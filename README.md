@@ -1,6 +1,5 @@
 ### Homework 1
 
-**Тесты**
 ![Tests](https://github.com/wilfordaf/hse-python-backend/actions/workflows/tests.yml/badge.svg)
 
 **Команда для запуска**

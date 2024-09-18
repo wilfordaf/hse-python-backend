@@ -10,6 +10,8 @@ python = "^3.12"
 uvicorn = "^0.30.6"
 fastapi = "^0.114.2"
 requests = "^2.32.3"
+tox = "^4.19.0"
+types-requests = "^2.32.0.20240914"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -18,6 +20,8 @@ ruff = "^0.6.5"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^8.3.3"
+mypy = "^1.11.2"
+flake8 = "^7.1.1"
 
 [build-system]
 requires = ["poetry-core"]

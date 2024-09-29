@@ -3,16 +3,20 @@ from typing import Any
 from uuid import uuid4
 
 import pytest
+import pytest_asyncio
 from faker import Faker
 from fastapi.testclient import TestClient
 
+from homework_2.infrastructure.db.utils import init_tables
 from homework_2.main import app
-
-# from uuid import uuid4
-
 
 client = TestClient(app)
 faker = Faker()
+
+
+@pytest_asyncio.fixture(scope="session", autouse=True)
+async def create_tables():
+    await init_tables()
 
 
 @pytest.fixture(scope="session")

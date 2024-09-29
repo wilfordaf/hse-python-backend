@@ -7,14 +7,14 @@ from homework_2.core.entities import Cart
 class ICartRepository(ABC):
     @staticmethod
     @abstractmethod
-    async def create_cart(self) -> int:
+    async def create_cart() -> int:
         """
         Create a new cart and return the cart ID.
         """
 
     @staticmethod
     @abstractmethod
-    async def get_cart_by_id(self, cart_id: int) -> Optional[Cart]:
+    async def get_cart_by_id(cart_id: int) -> Optional[Cart]:
         """
         Retrieve a cart by its ID.
         """
@@ -22,7 +22,6 @@ class ICartRepository(ABC):
     @staticmethod
     @abstractmethod
     async def get_carts(
-        self,
         offset,
         limit,
         min_price: Optional[float],
@@ -36,7 +35,7 @@ class ICartRepository(ABC):
 
     @staticmethod
     @abstractmethod
-    async def add_item_to_cart(self, cart_id: int, item_id: int, quantity: int) -> Optional[Cart]:
+    async def add_item_to_cart(cart_id: int, item_id: int, item_price: float) -> Optional[Cart]:
         """
         Add an item to the cart with a specified quantity. If the item already exists in the cart,
         its quantity is increased. Returns the updated cart data.

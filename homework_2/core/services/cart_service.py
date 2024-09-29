@@ -1,7 +1,8 @@
 from typing import Optional
 
 from homework_2.core.entities import Cart
-from homework_2.core.repositories import ICartRepository, IItemRepository
+from homework_2.core.repositories import ICartRepository
+from homework_2.core.repositories.item_repository import IItemRepository
 from homework_2.core.services.interfaces import ICartService
 
 
@@ -55,12 +56,17 @@ class CartService(ICartService):
 
         return await self._cart_repository.get_carts(offset, limit, min_price, max_price, min_quantity, max_quantity)
 
-    async def add_item_to_cart(self, cart_id: int, item_id: int, quantity: int) -> Cart:
-        if quantity <= 0:
-            raise ValueError("Quantity must be greater than zero.")
+    async def add_item_to_cart(self, cart_id: int, item_id: int) -> Cart:
+        item = await self._item_repository.get_item_by_id(item_id)
+        if item is None:
+            raise ValueError(f"Item with ID {item_id} not found.")
 
-        updated_cart = await self._cart_repository.add_item_to_cart(cart_id, item_id, quantity)
+        if item.deleted:
+            raise ValueError(f"Item with ID {item_id} is not available (deleted).")
+
+        updated_cart = await self._cart_repository.add_item_to_cart(cart_id, item_id, item.price)
+
         if updated_cart is None:
-            raise ValueError(f"Encountered error updating cart {cart_id} with {item_id} {quantity}.")
+            raise ValueError(f"Encountered error updating cart {cart_id} with item {item_id}.")
 
         return updated_cart

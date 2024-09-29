@@ -32,7 +32,7 @@ class ICartService(ABC):
         """
 
     @abstractmethod
-    async def add_item_to_cart(self, cart_id: int, item_id: int, quantity: int) -> Cart:
+    async def add_item_to_cart(self, cart_id: int, item_id: int) -> Cart:
         """
         Adds a quantity of items to the cart with given id
         """

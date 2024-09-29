@@ -53,6 +53,13 @@ class ItemService(IItemService):
         return updated_item
 
     async def patch_item(self, item_id: int, patch_dto: PatchItemDTO) -> Item:
+        existing_item = await self._item_repository.get_item_by_id(item_id)
+        if existing_item is None:
+            raise ValueError(f"Item with ID {item_id} not found.")
+
+        if existing_item.deleted:
+            raise TypeError(f"Item with ID {item_id} is deleted so cannot be modified.")
+
         patched_item = await self._item_repository.patch_item(item_id, patch_dto)
         if patched_item is None:
             raise ValueError(f"Item with ID {item_id} not found.")

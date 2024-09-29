@@ -7,4 +7,4 @@ def item_service():
 
 
 def cart_service():
-    return CartService(CartRepository)
+    return CartService(CartRepository, ItemRepository)

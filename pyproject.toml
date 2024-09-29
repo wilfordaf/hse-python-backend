@@ -27,6 +27,11 @@ async-asgi-testclient = "^1.4.11"
 pytest-asyncio = "^0.24.0"
 types-requests = "^2.32.0.20240914"
 
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::Warning"
+]
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

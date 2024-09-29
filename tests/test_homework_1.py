@@ -1,13 +1,13 @@
-"""Подразумевается, что при запуске тестов локально запущено приложение.
-
-Адрес: localhost:8000
-"""
-
 from http import HTTPStatus
 from typing import Any
 
 import pytest
 import requests
+from async_asgi_testclient import TestClient
+
+from homework_1.service import app
+
+client = TestClient(app)
 
 HOST = "localhost"
 PORT = 8000

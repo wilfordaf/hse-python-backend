@@ -31,14 +31,7 @@ class ItemRepository(IItemRepository):
 
         try:
             item = result.scalar_one()
-            return Item.model_validate(
-                {
-                    "id": item.id,
-                    "name": item.name,
-                    "price": item.price,
-                    "deleted": item.deleted,
-                }
-            )
+            return Item.model_validate(item)
         except NoResultFound:
             return None
 
@@ -66,17 +59,7 @@ class ItemRepository(IItemRepository):
 
         items = result.scalars().all()
 
-        return [
-            Item.model_validate(
-                {
-                    "id": item.id,
-                    "name": item.name,
-                    "price": item.price,
-                    "deleted": item.deleted,
-                }
-            )
-            for item in items
-        ]
+        return [Item.model_validate(item) for item in items]
 
     @staticmethod
     async def update_item(item_id: int, update_dto: UpdateItemDTO) -> Optional[Item]:
@@ -92,14 +75,7 @@ class ItemRepository(IItemRepository):
                 await session.commit()
                 await session.refresh(item)
 
-                return Item.model_validate(
-                    {
-                        "id": item.id,
-                        "name": item.name,
-                        "price": item.price,
-                        "deleted": item.deleted,
-                    }
-                )
+                return Item.model_validate(item)
             except NoResultFound:
                 return None
 
@@ -121,14 +97,7 @@ class ItemRepository(IItemRepository):
                 await session.commit()
                 await session.refresh(item)
 
-                return Item.model_validate(
-                    {
-                        "id": item.id,
-                        "name": item.name,
-                        "price": item.price,
-                        "deleted": item.deleted,
-                    }
-                )
+                return Item.model_validate(item)
             except NoResultFound:
                 return None
 
@@ -145,13 +114,6 @@ class ItemRepository(IItemRepository):
                 await session.commit()
                 await session.refresh(item)
 
-                return Item.model_validate(
-                    {
-                        "id": item.id,
-                        "name": item.name,
-                        "price": item.price,
-                        "deleted": item.deleted,
-                    }
-                )
+                return Item.model_validate(item)
             except NoResultFound:
                 return None

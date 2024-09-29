@@ -32,6 +32,10 @@ filterwarnings = [
     "ignore::Warning"
 ]
 
+[tool.mypy]
+mypy_path = "homework_2"
+ignore_missing_imports = true
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

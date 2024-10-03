@@ -1,7 +1,6 @@
-### Homework 1
-
 ![Tests](https://github.com/wilfordaf/hse-python-backend/actions/workflows/tests.yml/badge.svg)
 
-**Команда для запуска**
+### Homework 3
 
-Скрипт для запуска находится в homework_1/bin/run_app.sh
+<ins>Grafana Dashboard</ins>
+![dashboard](docs/monitoring/dashboard.png)

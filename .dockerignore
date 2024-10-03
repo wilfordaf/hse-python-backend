@@ -1,0 +1,7 @@
+# Чёрный лист - всё, кроме белого листа
+*
+
+# Белый лист
+!/homework_2
+!pyproject.toml
+!poetry.lock

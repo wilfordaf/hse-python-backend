@@ -1,5 +1,6 @@
 import uvicorn
 from fastapi import FastAPI, Request
+from prometheus_fastapi_instrumentator import Instrumentator, metrics
 from starlette import status
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import JSONResponse
@@ -16,6 +17,26 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+instrumentator = Instrumentator(
+    should_group_status_codes=False,
+    should_ignore_untemplated=True,
+    should_instrument_requests_inprogress=True,
+    excluded_handlers=["/openapi.json", "/favicon.ico"],
+    inprogress_name="in_progress",
+    inprogress_labels=True,
+)
+
+TRACKED_METRICS = [
+    metrics.requests(),
+    metrics.latency(),
+]
+
+for metric in TRACKED_METRICS:
+    instrumentator.add(metric)
+
+instrumentator.instrument(app, metric_namespace="service", metric_subsystem="service")
+instrumentator.expose(app, include_in_schema=False, should_gzip=True)
+
 
 @app.exception_handler(Exception)
 async def custom_exception_handler(_: Request, exception: Exception):
@@ -31,4 +52,4 @@ for router in all_routers:
     app.include_router(router)
 
 if __name__ == "__main__":
-    uvicorn.run(app="main:app", reload=True)
+    uvicorn.run(app="main:app", host="0.0.0.0", port=8000, reload=True)

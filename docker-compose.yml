@@ -1,5 +1,5 @@
 services:
-  model-service:
+  service:
     container_name: service
     restart: always
     build:
@@ -7,6 +7,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
+    environment:
+      - ADMIN_PASSWORD=superSecretAdminPassword123
 
   prometheus:
     image: prom/prometheus
@@ -17,6 +19,8 @@ services:
       - ./monitoring/prometheus:/etc/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
+    depends_on:
+      - service
 
   grafana:
     image: grafana/grafana

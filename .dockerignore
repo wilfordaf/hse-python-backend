@@ -2,6 +2,7 @@
 *
 
 # Белый лист
-!/homework_2
+!/homework_4
+!/tests
 !pyproject.toml
 !poetry.lock

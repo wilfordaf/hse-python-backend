@@ -19,10 +19,9 @@ RUN apt-get update && \
 RUN python -m pip install --upgrade pip
 
 COPY . .
-COPY ./homework_2/main.py .
 RUN pip install poetry
 
 RUN POETRY_VIRTUALENVS_CREATE=false poetry install && rm -rf /root/.cache/pypoetry/*
 
-EXPOSE 9090
-CMD ["python3", "main.py"]
+EXPOSE 8000
+CMD ["uvicorn", "homework_4.api.main:app", "--host", "0.0.0.0", "--port", "8000"]

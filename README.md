@@ -10,7 +10,7 @@
 
 <ins>Команда для запуска тестов</ins>
 
-`docker exec -it service locust --api-target-rps 10 --headless -u 10 -r 1 --run-time 10m -f /root/src/tests/load_tests/locustfile.py`
+`docker exec -it service locust --api-target-rps 5 --headless -u 10 -r 1 --run-time 10m -f /root/src/tests/load_tests/locustfile.py`
 
 <ins>Отчёт Locust</ins>
 
